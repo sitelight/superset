@@ -43,6 +43,16 @@ export type UserRegistration = {
   registration_hash: string;
 };
 
+/**
+ * Typed cell props for react-table columns.
+ * Replaces `: any` for better type safety in Cell render functions.
+ */
+interface UserRegistrationCellProps {
+  row: {
+    original: UserRegistration;
+  };
+}
+
 export default function UserRegistrations() {
   const { addSuccessToast, addDangerToast } = useToasts();
   const [
@@ -90,42 +100,48 @@ export default function UserRegistrations() {
         accessor: 'username',
         id: 'username',
         Header: t('Username'),
-        Cell: ({ row: { original } }: any) => original.username,
+        Cell: ({ row: { original } }: UserRegistrationCellProps) =>
+          original.username,
       },
       {
         accessor: 'first_name',
         id: 'first_name',
         Header: t('First name'),
-        Cell: ({ row: { original } }: any) => original.first_name,
+        Cell: ({ row: { original } }: UserRegistrationCellProps) =>
+          original.first_name,
       },
       {
         accessor: 'last_name',
         id: 'last_name',
         Header: t('Last name'),
-        Cell: ({ row: { original } }: any) => original.last_name,
+        Cell: ({ row: { original } }: UserRegistrationCellProps) =>
+          original.last_name,
       },
       {
         accessor: 'email',
         id: 'email',
         Header: t('Email'),
-        Cell: ({ row: { original } }: any) => original.email,
+        Cell: ({ row: { original } }: UserRegistrationCellProps) =>
+          original.email,
       },
       {
         accessor: 'registration_hash',
         id: 'registration_hash',
         Header: t('Registration hash'),
-        Cell: ({ row: { original } }: any) => original.registration_hash,
+        Cell: ({ row: { original } }: UserRegistrationCellProps) =>
+          original.registration_hash,
       },
       {
         accessor: 'registration_date',
         id: 'registration_date',
         Header: t('Registration date'),
-        Cell: ({ row: { original } }: any) => original.registration_date,
+        Cell: ({ row: { original } }: UserRegistrationCellProps) =>
+          original.registration_date,
       },
       {
         id: 'actions',
         Header: t('Actions'),
-        Cell: ({ row: { original } }: any) => {
+        Cell: ({ row: { original } }: UserRegistrationCellProps) => {
           const actions = [
             {
               label: 'registrations-list-delete-action',

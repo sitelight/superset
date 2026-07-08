@@ -46,6 +46,16 @@ import type { UsersListProps, Group, Role, UserObject } from './types';
 
 const PAGE_SIZE = 25;
 
+/**
+ * Typed cell props for react-table columns.
+ * Replaces `: any` for better type safety in Cell render functions.
+ */
+interface UserCellProps {
+  row: {
+    original: UserObject;
+  };
+}
+
 enum ModalType {
   ADD = 'add',
   EDIT = 'edit',
@@ -195,7 +205,7 @@ function UsersList({ user }: UsersListProps) {
           row: {
             original: { first_name },
           },
-        }: any) => <span>{first_name}</span>,
+        }: UserCellProps) => <span>{first_name}</span>,
       },
       {
         accessor: 'last_name',
@@ -206,7 +216,7 @@ function UsersList({ user }: UsersListProps) {
           row: {
             original: { last_name },
           },
-        }: any) => <span>{last_name}</span>,
+        }: UserCellProps) => <span>{last_name}</span>,
       },
       {
         accessor: 'username',
@@ -217,7 +227,7 @@ function UsersList({ user }: UsersListProps) {
           row: {
             original: { username },
           },
-        }: any) => <span>{username}</span>,
+        }: UserCellProps) => <span>{username}</span>,
       },
       {
         accessor: 'email',
@@ -228,7 +238,7 @@ function UsersList({ user }: UsersListProps) {
           row: {
             original: { email },
           },
-        }: any) => <span>{email}</span>,
+        }: UserCellProps) => <span>{email}</span>,
       },
       {
         accessor: 'active',
@@ -239,7 +249,7 @@ function UsersList({ user }: UsersListProps) {
           row: {
             original: { active },
           },
-        }: any) => <span>{active ? 'Yes' : 'No'}</span>,
+        }: UserCellProps) => <span>{active ? 'Yes' : 'No'}</span>,
       },
       {
         accessor: 'roles',
@@ -250,7 +260,7 @@ function UsersList({ user }: UsersListProps) {
           row: {
             original: { roles },
           },
-        }: any) => (
+        }: UserCellProps) => (
           <Tooltip
             title={
               roles?.map((role: Role) => role.name).join(', ') || t('No roles')
@@ -270,7 +280,7 @@ function UsersList({ user }: UsersListProps) {
           row: {
             original: { groups },
           },
-        }: any) => (
+        }: UserCellProps) => (
           <Tooltip
             title={
               groups?.map((group: Group) => group.name).join(', ') ||
@@ -287,14 +297,15 @@ function UsersList({ user }: UsersListProps) {
         id: 'login_count',
         Header: t('Login count'),
         hidden: true,
-        Cell: ({ row: { original } }: any) => original.login_count,
+        Cell: ({ row: { original } }: UserCellProps) => original.login_count,
       },
       {
         accessor: 'fail_login_count',
         id: 'fail_login_count',
         Header: t('Fail login count'),
         hidden: true,
-        Cell: ({ row: { original } }: any) => original.fail_login_count,
+        Cell: ({ row: { original } }: UserCellProps) =>
+          original.fail_login_count,
       },
       {
         accessor: 'created_on',
@@ -305,7 +316,7 @@ function UsersList({ user }: UsersListProps) {
           row: {
             original: { created_on },
           },
-        }: any) => created_on,
+        }: UserCellProps) => created_on,
       },
       {
         accessor: 'changed_on',
@@ -316,7 +327,7 @@ function UsersList({ user }: UsersListProps) {
           row: {
             original: { changed_on },
           },
-        }: any) => changed_on,
+        }: UserCellProps) => changed_on,
       },
       {
         accessor: 'last_login',
@@ -327,10 +338,10 @@ function UsersList({ user }: UsersListProps) {
           row: {
             original: { last_login },
           },
-        }: any) => last_login,
+        }: UserCellProps) => last_login,
       },
       {
-        Cell: ({ row: { original } }: any) => {
+        Cell: ({ row: { original } }: UserCellProps) => {
           const handleEdit = () => {
             setCurrentUser(original);
             openModal(ModalType.EDIT);

@@ -74,7 +74,7 @@ class ExtensionsRestApi(BaseApi):
     def get_list(self, **kwargs: Any) -> Response:
         """List all enabled extensions.
         ---
-        get_list:
+        get:
           summary: List all enabled extensions.
           responses:
             200:
@@ -84,15 +84,29 @@ class ExtensionsRestApi(BaseApi):
                   schema:
                     type: object
                     properties:
-                        result:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                remoteEntry:
-                                  type: string
-                                remoteEntry:
-                                  type: string
+                      result:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                            name:
+                              type: string
+                            version:
+                              type: string
+                            description:
+                              type: string
+                            dependencies:
+                              type: array
+                              items:
+                                type: string
+                            remoteEntry:
+                              type: string
+                            moduleFederationName:
+                              type: string
+                      count:
+                        type: integer
             400:
               $ref: '#/components/responses/400'
             401:
@@ -140,19 +154,31 @@ class ExtensionsRestApi(BaseApi):
                   schema:
                     type: object
                     properties:
-                        result:
+                      result:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                          name:
+                            type: string
+                          version:
+                            type: string
+                          description:
+                            type: string
+                          dependencies:
                             type: array
                             items:
-                              type: object
-                              properties:
-                                remoteEntry:
-                                  type: string
-                                remoteEntry:
-                                  type: string
+                              type: string
+                          remoteEntry:
+                            type: string
+                          moduleFederationName:
+                            type: string
             400:
               $ref: '#/components/responses/400'
             401:
               $ref: '#/components/responses/401'
+            404:
+              $ref: '#/components/responses/404'
             422:
               $ref: '#/components/responses/422'
             500:

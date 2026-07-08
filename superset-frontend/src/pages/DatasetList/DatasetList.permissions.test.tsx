@@ -71,9 +71,9 @@ test('admin users see all UI elements', async () => {
   ).toBeInTheDocument();
 
   // Admin should see import button
-  // Note: Using testId - import button lacks accessible text content
-  // TODO: Add aria-label or text to import button
-  expect(screen.getByTestId('import-button')).toBeInTheDocument();
+  expect(
+    screen.getByRole('button', { name: /import datasets/i }),
+  ).toBeInTheDocument();
 
   // Admin should see bulk select button
   expect(
@@ -138,9 +138,9 @@ test('read-only users cannot see Create/Import buttons', async () => {
   ).not.toBeInTheDocument();
 
   // Import button should not be visible
-  // Note: Using testId - import button lacks accessible text content
-  // TODO: Add aria-label or text to import button
-  expect(screen.queryByTestId('import-button')).not.toBeInTheDocument();
+  expect(
+    screen.queryByRole('button', { name: /import datasets/i }),
+  ).not.toBeInTheDocument();
 });
 
 test('write users see Actions column', async () => {
@@ -192,9 +192,9 @@ test('write users see Create/Import buttons', async () => {
   ).toBeInTheDocument();
 
   // Import button should be visible
-  // Note: Using testId - import button lacks accessible text content
-  // TODO: Add aria-label or text to import button
-  expect(screen.getByTestId('import-button')).toBeInTheDocument();
+  expect(
+    screen.getByRole('button', { name: /import datasets/i }),
+  ).toBeInTheDocument();
 });
 
 test('export-only users see bulk select (for export only)', async () => {
@@ -227,9 +227,9 @@ test('export-only users cannot see Create/Import buttons', async () => {
   expect(
     screen.queryByRole('button', { name: /(?:plus\s*)?Dataset$/i }),
   ).not.toBeInTheDocument();
-  // Note: Using testId - import button lacks accessible text content
-  // TODO: Add aria-label or text to import button
-  expect(screen.queryByTestId('import-button')).not.toBeInTheDocument();
+  expect(
+    screen.queryByRole('button', { name: /import datasets/i }),
+  ).not.toBeInTheDocument();
 });
 
 test('action buttons respect user permissions', async () => {

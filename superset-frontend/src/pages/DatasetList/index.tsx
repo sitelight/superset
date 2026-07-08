@@ -666,6 +666,7 @@ const DatasetList: FunctionComponent<DatasetListProps> = ({
           <Icons.DownloadOutlined
             iconColor={theme.colorPrimary}
             data-test="import-button"
+            aria-label={t('Import datasets')}
             iconSize="l"
           />
         </Tooltip>
